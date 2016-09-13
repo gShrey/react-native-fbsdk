@@ -19,6 +19,7 @@
 #import <RCTBridgeModule.h>
 
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import "UIViewController+TopMostController.h"
 
 @interface RCTFBSDKShareDialog : NSObject <RCTBridgeModule, FBSDKSharingDelegate>
 @end

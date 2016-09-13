@@ -77,7 +77,9 @@ RCT_EXPORT_METHOD(show:(RCTFBSDKSharingContent)content
   _showReject = reject;
   _shareDialog.shareContent = content;
   if (!_shareDialog.fromViewController) {
-    _shareDialog.fromViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+      UIViewController *rootController = [UIApplication sharedApplication].delegate.window.rootViewController;
+      rootController = [rootController topMostController];
+    _shareDialog.fromViewController = rootController;
   }
   dispatch_async(dispatch_get_main_queue(), ^{
     [_shareDialog show];

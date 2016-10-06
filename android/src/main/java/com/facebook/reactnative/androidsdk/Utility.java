@@ -28,6 +28,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.share.model.AppGroupCreationContent;
@@ -219,7 +220,14 @@ public final class Utility {
         while (keySetIterator.hasNextKey()) {
             String key = keySetIterator.nextKey();
             ReadableMap entry = properties.getMap(key);
-            contentBuilder.putObject(key, buildShareOpenGraphObject(entry.getMap("value")));
+            if(entry.getType("type") == ReadableType.Map) {
+                contentBuilder.putObject(key, buildShareOpenGraphObject(entry.getMap("value")));
+            }else{
+                if(ReadableType.String == entry.getType("type"))
+                {
+                    contentBuilder.putString(key,entry.getString("value"));
+                }
+            }
         }
         return contentBuilder.build();
     }
